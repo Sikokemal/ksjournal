@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>  Мұғалімнің журналы - Кемал С. | КМ03</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="loginScreen" class="screen active">
+        <div class="login-box">
+            <h1> Мұғалімнің журналы</h1>
+            <p>Кемал С. (КМ03)</p>
+            <input type="text" id="login" placeholder="Логин" value="kemal">
+            <input type="password" id="password" placeholder="Құпиясөз" value="123">
+            <button onclick="login()">Кіру</button>
+            <div class="login-info"><small>демо: kemal / 123</small></div>
+        </div>
+    </div>
+
+    <div id="scheduleScreen" class="screen">
+        <div class="header">
+            <h1> Бағалау журналы</h1>
+            <div class="header-right">
+                <span id="userName">Кемал С.</span>
+                <button onclick="logout()" class="logout-btn">Шығу</button>
+            </div>
+        </div>
+        <div class="schedule-container">
+            <div class="schedule-grid" id="scheduleGrid"></div>
+        </div>
+    </div>
+
+    <div id="journalScreen" class="screen">
+    <div class="header">
+        <div class="header-left">
+            <button onclick="goBack()" class="back-btn">← Журналға қайту</button>
+        </div>
+        
+        <h1 id="journalTitle">Топ журналы</h1>
+        
+        <div class="header-right">
+            <button class="export-btn" onclick="exportExcel()"> Excel-ге жүктеу</button>
+        </div>
+    </div>
+
+        <div class="journal-main">
+            <div class="journal-left">
+                <div id="currentGroupInfo" class="group-info-card"></div>
+                <div class="calendar-section">
+                    <h3>  Күн таңдау</h3>
+                    <div class="calendar-container">
+                        <div class="calendar-header">
+                            <button onclick="prevMonth()" class="nav-btn">‹</button>
+                            <div id="monthYear"></div>
+                            <button onclick="nextMonth()" class="nav-btn">›</button>
+                        </div>
+                        <div class="calendar-grid" id="calendarDays"></div>
+                    </div>
+                    <div id="selectedDateDisplay" class="date-info"></div>
+                    <input type="hidden" id="selectedDate">
+                </div>
+            </div>
+
+            <div class="journal-right">
+                <div class="students-section">
+                    <h3>Студенттер тізімі</h3>
+                    
+                    <div class="students-controls" style="display: flex; gap: 10px; margin-bottom: 15px;">
+                        <input type="text" id="studentSearch" placeholder="Оқушыны іздеу..." oninput="filterStudents()">
+                        <button onclick="addNewStudent()" class="add-btn">+ Студенттерді қосу</button>
+                    </div>
+
+                    <div class="students-table">
+                        <table>
+                            <thead>
+                                <tr><th>#</th><th>Студент аты</th><th>Баға/Қатысу</th><th>Ескертпе</th></tr>
+                            </thead>
+                            <tbody id="studentsTable"></tbody>
+                        </table>
+                        <button onclick="saveJournal()" class="save-btn"> Журналды сақтау</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

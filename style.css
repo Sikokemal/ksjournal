@@ -1,0 +1,206 @@
+* {margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',sans-serif;background:#f0f4f8;color:#2d3748;}
+.screen{display:none;padding:20px;}
+.screen.active{display:block;animation:fadeIn 0.3s;}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+
+.login-box{max-width:350px;margin:100px auto;background:white;padding:40px;border-radius:15px;text-align:center;box-shadow:0 10px 25px rgba(0,0,0,0.1);}
+.login-box input{width:100%;padding:12px;margin:10px 0;border:1px solid #ddd;border-radius:8px;}
+.login-box button{width:100%;padding:12px;background:#4299e1;border:none;color:white;border-radius:8px;cursor:pointer;}
+
+.header{background:white;padding:20px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;box-shadow:0 4px 12px rgba(0,0,0,0.05);}
+.logout-btn,.back-btn{background:#f56565;color:white;border:none;padding:8px 15px;border-radius:8px;cursor:pointer;}
+
+.schedule-container{background:white;border-radius:12px;padding:20px;overflow-x:auto;}
+.schedule-grid{display:grid;grid-template-columns:150px repeat(5,1fr);gap:10px;min-width:1000px;}
+.day-header{background:#4299e1;color:white;padding:15px;text-align:center;font-weight:bold;border-radius:8px;}
+.group-label{background:#48bb78;color:white;padding:15px;display:flex;align-items:center;justify-content:center;border-radius:8px;font-weight:bold;}
+
+/* Сабақ ұяшығы */
+.lesson{background:#edf2f7;border:2px solid #e2e8f0;padding:15px;border-radius:8px;cursor:pointer;text-align:center;transition:0.2s;}
+.lesson:hover{border-color:#4299e1;background:#ebf8ff;}
+.lesson small {display:block;color:#718096;margin-top:5px;}
+
+/* ҚАЗІРГІ САБАҚТЫҢ ТҮСІ (ҚЫЗЫЛ) */
+.active-lesson {
+    background: #fff5f5 !important;
+    border: 2px solid #f56565 !important;
+    box-shadow: 0 0 10px rgba(245, 101, 101, 0.4);
+    position: relative;
+}
+.active-lesson::before {
+    content: "● ҚАЗІР";
+    position: absolute;
+    top: -10px;
+    right: 5px;
+    background: #f56565;
+    color: white;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 10px;
+}
+
+.journal-main{display:flex;gap:20px;}
+.journal-left{flex:0 0 300px;}
+.journal-right{flex:1;}
+.group-info-card{background:linear-gradient(135deg,#4299e1,#3182ce);color:white;padding:20px;border-radius:12px;margin-bottom:20px;text-align:center;}
+.calendar-section{background:white;padding:15px;border-radius:12px;}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-top:10px;}
+.calendar-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:5px;cursor:pointer;font-size:12px;border:1px solid #eee;}
+.calendar-day.selected{background:#48bb78;color:white;}
+
+.students-section{background:white;padding:20px;border-radius:12px;}
+.mark-input{width:50px;text-align:center;padding:5px;border-radius:5px;border:1px solid #ddd;font-weight:bold;text-transform:uppercase;}
+.mark-input.nb{background:#fed7d7;color:#c53030;}
+.save-btn{width:100%;padding:15px;background:#48bb78;color:white;border:none;border-radius:10px;margin-top:20px;cursor:pointer;font-size:16px;}
+/* Батырманың бәрінің үстінде тұруын және басылуын қамтамасыз етеді */
+.logout-btn, .export-btn, .back-btn {
+    position: relative;
+    z-index: 1000;
+    cursor: pointer;
+    pointer-events: auto; /* Басылу функциясын мәжбүрлі қосу */
+}
+
+/* 202 РПО жазуы батырманы жауып кетпеуі үшін */
+.header h1 {
+    pointer-events: none; /* Тақырып батырмаға кедергі жасамайды */
+}
+/* style.css файлының соңына қосыңыз */
+
+/* Таңдалған күн - Көк */
+.calendar-day.selected { 
+    background: #003399 !important; 
+    color: white !important;
+} 
+
+/* Сақтау батырмасы - Қызыл */
+.save-btn { 
+    background: #cc0000 !important; 
+    color: white !important;
+} 
+
+/* Excel батырмасы - Көк */
+.export-btn { 
+    background: #003399 !important; 
+    color: white !important;
+}
+
+/* Баға енгізетін ұяшықтардың стильдері */
+.mark-input.grade-nb { background-color: #ff0000; color: white; }   /* НБ - Қызыл */
+.mark-input.grade-low { background-color: #ffff00; color: black; }  /* <70 - Сары */
+.mark-input.grade-mid { background-color: #0000ff; color: white; }  /* 70-89 - Көк */
+.mark-input.grade-high { background-color: #00ff00; color: black; } /* 90-100 - Жасыл */
+/* Студенттерді қосу батырмасы - Жасыл */
+.add-btn {
+    background-color: #28a745 !important; /* Жасыл түс */
+    color: white !important;
+    border: none !important;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.add-btn:hover {
+    background-color: #218838 !important; /* Тышқанды апарғанда күңгірт жасыл */
+}
+/* КҮНТІЗБЕНІҢ МІНСІЗ ДИЗАЙНЫ (STYLE.CSS СОҢЫНА) */
+
+.calendar-section {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    text-align: center;
+    max-width: 350px; /* Сызғышпен өлшегендей жинақы болуы үшін */
+    margin: 0 auto;
+}
+
+.calendar-title {
+    color: #003399; /* Көк түс */
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    background: #f8f9fa;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+#monthYear {
+    font-weight: 700;
+    color: #2d3748;
+    text-transform: capitalize;
+}
+
+.nav-btn {
+    background: #003399;
+    color: white;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+    line-height: 1;
+    transition: 0.3s;
+}
+
+.nav-btn:hover {
+    background: #002266;
+    transform: scale(1.1);
+}
+
+.weekdays-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    font-size: 12px;
+    font-weight: bold;
+    color: #a0aec0;
+    margin-bottom: 10px;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: 0.2s;
+    border: 1px solid transparent;
+}
+
+.calendar-day:hover:not(.selected) {
+    background: #edf2f7;
+    color: #003399;
+}
+
+/* ТАҢДАЛҒАН КҮН - КӨК (PERFECT) */
+.calendar-day.selected {
+    background: #003399 !important;
+    color: #ffffff !important;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0, 51, 153, 0.3);
+}
+
+/* БҮГІНГІ КҮН - ҚЫЗЫЛ ЖИЕК */
+.calendar-day.today {
+    border: 2px solid #cc0000;
+    color: #cc0000;
+    font-weight: bold;
+}
